@@ -10,7 +10,7 @@ Before running this application, make sure you have the necessary dependencies i
 
 ```bash
 sudo apt update
-sudo apt install python3-tk python3-pil python3-pil.imagetk
+sudo apt install python3-tk python3-pil python3-pil.imagetk python3-pip
 pip install ttkbootstrap
 ```
 
