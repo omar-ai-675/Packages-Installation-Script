@@ -28,6 +28,7 @@ class PackageInstallerApp:
             "NVIDIA Toolkit and Docker": tk.BooleanVar(),
             "RustDesk": tk.BooleanVar(),
             "VSCode": tk.BooleanVar(),
+            "CUDNN": tk.BooleanVar(),
         }
 
         self.check_buttons = []
@@ -64,11 +65,23 @@ class PackageInstallerApp:
 
         # CUDA Installation
         if self.packages["CUDA"].get():
-            self.log("Installing NVIDIA CUDA for X86...")
+            self.log("Installing NVIDIA CUDA..")
             os.system("wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda_12.1.0_530.30.02_linux.run")
             os.system("sudo chmod a=rwx cuda_12.1.0_530.30.02_linux.run")
             os.system("sudo ./cuda_12.1.0_530.30.02_linux.run")
             self.log("CUDA 12.1 INSTALLATION DONE!\n")
+
+
+        # CUDNN Installation
+        cookies_file = "cookies.txt"  # Make sure this file is valid
+        download_url = "https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/12.x/cudnn-local-repo-ubuntu2204-8.9.7.29_1.0-1_amd64.deb"
+        output_file = "cudnn-local-repo.deb"
+
+        if self.packages["CUDNN"].get():
+            self.log("Installing NVIDIA CUDNN...")
+            os.system(f'wget --debug -v --progress=bar:force --load-cookies {cookies_file} "{download_url}" -O {output_file}')
+            os.system("sudo apt install ./cudnn-local-repo.deb")
+            self.log("CUDNN INSTALLATION DONE!\n")
 
 
         # NVIDIA Drivers Installation
