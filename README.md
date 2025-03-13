@@ -30,6 +30,7 @@ pip install ttkbootstrap
 - **NVIDIA Toolkit and Docker** - NVIDIA Container Runtime for Docker
 - **RustDesk** - Open source remote desktop software
 - **VSCode** - Microsoft's popular code editor
+- **cuDNN** - NVIDIA CUDA Deep Neural Network library
 
 ## Usage
 
@@ -46,14 +47,18 @@ pip install ttkbootstrap
 
 - This application needs to be run with sufficient privileges as it executes sudo commands
 - The CUDA installer is interactive and will require user input during installation
-- **NVIDIA cuDNN** must be installed separately as it requires an NVIDIA Developer account login
-- Some installations may require a system reboot to take full effect
+- **For cuDNN installation**: You must first create a cookies.txt file containing your NVIDIA Developer login credentials 
+- NVIDIA driver installation may conflict with existing drivers - a system reboot is strongly recommended after installation
+- If you encounter issues with CUDA installation, consider removing any existing NVIDIA drivers first
+- Installing multiple packages at once may take significant time
+- Some installations will prompt for user input during the process
 
 ## Requirements
 
 - Python 3.6+
-- Ubuntu/Debian-based Linux distribution
+- Ubuntu/Debian-based Linux distribution (tested on Ubuntu 22.04)
 - Internet connection for downloading packages
+- NVIDIA GPU for driver, CUDA and cuDNN installations
 
 ## License
 
