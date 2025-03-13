@@ -2,7 +2,7 @@
 
 A simple GUI application to easily install common development packages on Linux systems. This tool simplifies the installation of NVIDIA drivers, CUDA, Docker, RustDesk, VSCode and other development tools with a user-friendly interface.
 
-![Screenshot of the application](![image](https://github.com/user-attachments/assets/bb693293-c3ff-4268-9263-67732829c5a8)
+![Screenshot of the application]((https://github.com/user-attachments/assets/bb693293-c3ff-4268-9263-67732829c5a8)
 )
 
 ## Prerequisites
