@@ -22,10 +22,10 @@ class PackageInstallerApp:
         title_label.pack(pady=10)
 
         self.packages = {
+            "NVIDIA Toolkit and Docker": tk.BooleanVar(),
             "CUDA": tk.BooleanVar(),
             "NVIDIA Driver": tk.BooleanVar(),
             "Docker-Compose": tk.BooleanVar(),
-            "NVIDIA Toolkit and Docker": tk.BooleanVar(),
             "RustDesk": tk.BooleanVar(),
             "VSCode": tk.BooleanVar(),
             "CUDNN": tk.BooleanVar(),
@@ -63,6 +63,22 @@ class PackageInstallerApp:
         self.log("\nSTARTING PACKAGES INSTALLATION!\n")
         os.system("sudo apt update")
 
+
+        # NVIDIA Container Toolkit Installation
+        if self.packages["NVIDIA Toolkit and Docker"].get():
+            self.log("INSTALLING NVIDIA Container Toolkit...")
+            os.system(
+                "curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+                && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+                sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+                sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list"
+            )
+            os.system("sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list")
+            os.system("sudo apt-get update")
+            os.system("sudo apt-get install -y nvidia-container-toolkit")
+            os.system("sudo apt install -y nvidia-docker2")
+            self.log("NVIDIA CONTAINER TOOLKIT INSTALLATION DONE!\n")
+
         # CUDA Installation
         if self.packages["CUDA"].get():
             self.log("Installing NVIDIA CUDA..")
@@ -97,21 +113,6 @@ class PackageInstallerApp:
             self.log("INSTALLING Docker-Compose-v2...")
             os.system("sudo apt install -y docker-compose-v2")
             self.log("Docker-Compose-v2 INSTALLATION DONE!\n")
-
-        # NVIDIA Container Toolkit Installation
-        if self.packages["NVIDIA Toolkit and Docker"].get():
-            self.log("INSTALLING NVIDIA Container Toolkit...")
-            os.system(
-                "curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-                && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
-                sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-                sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list"
-            )
-            os.system("sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list")
-            os.system("sudo apt-get update")
-            os.system("sudo apt-get install -y nvidia-container-toolkit")
-            os.system("sudo apt install -y nvidia-docker2")
-            self.log("NVIDIA CONTAINER TOOLKIT INSTALLATION DONE!\n")
 
         # RustDesk Installation
         if self.packages["RustDesk"].get():
